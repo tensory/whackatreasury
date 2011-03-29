@@ -1,3 +1,31 @@
+Web app:
+Stores queue of players
+Does keyword search
+Gets batch of images back
+Web app runs on same machine as Processing app
+
+Status app
+Polls for state of game
+(being played, list of players, etc)
+
+
+Web app:
+Log in
+Do keyword search
+Listing IDs
+
+what processing needs:
+listing ids, tags, and 
+
+
+Game states:
+Game is not being played
+Game has been begun (initial search is done)
+Round is up but not selected
+Round is completed (item was selected, added to treasury)
+Game over, scoring
+
+
 Processing: 
 SimpleML
 
