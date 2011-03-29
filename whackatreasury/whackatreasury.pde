@@ -126,8 +126,8 @@ void loadImages() {
 }
 
 class ListingImage {
-  int listingID;
-  char sourceID;
+  int listingID; // ex: 3423453
+  char sourceID; // ex: 1 (input pillow #2)
   String localFilename;
   
   ListingImage(int listing, char source) {
