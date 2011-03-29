@@ -128,7 +128,7 @@ void loadImages() {
 class ListingImage {
   int listingID;
   char sourceID;
-  String url;
+  String localFilename;
   
   ListingImage(int listing, char source) {
     listingID = listing;
