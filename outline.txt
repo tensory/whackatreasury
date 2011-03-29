@@ -1,0 +1,72 @@
+Processing: 
+SimpleML
+
+SO.
+
+Web interface that submits name, search query also kicks off sourcefile generation script
+
+Result: source file of [listingIDs, tempIDs, urls]
+
+
+Initialize 1st group of images in Processing
+	- load from source file
+
+
+
+* Draw images on the canvas
+
+	//Curl images to data directory on sketch reset
+
+	Clicker (basic interactivity wireup) :
+	make array of sequential values to simulate position hits
+	
+	
+	when you click (signal a certain position hit)
+		print the ID that you're adding
+->		add the ID to an output array? or just call the script to add the item to the treasury (build up one by one, so that if one call fails that's ok)
+			need to know id of current input, map to collection of ListingImage objects
+				get it from random number generator for the moment
+		
+		* update the list of images to render
+
+		* undraw all the images and get a new set of images 
+	
+	
+		
+	
+	
+	
+	
+	the image identifier should be added to a "selected" bucket
+	
+	
+	
+	
+	
+	
+	
+	later: need image object that stores image URL and Etsy tags
+		// images are 
+		decrement "remaining successful hits" in order to populate a new group of images
+		click positions (input values) 
+		
+		[ 0, 1, 2 ] (size equals number of input pillows)
+		
+	
+	When position-hit bucket is exhausted 
+	
+	Processing reads { image filenames, listing IDs } from a resource file created for the currently selected keyword 
+	Processing creates an output file with listing IDs
+	When output file is at 12 
+	
+	Player queue: login; session
+	Look at how to create treasuries with Etsy API
+	Write script that 
+	
+	
+Draw images from Etsy API
+	// filesystem bullshit that can happen later
+	
+	load (how many?) based on tag search into a buffer directory
+	copy small batch from buffer 
+	
