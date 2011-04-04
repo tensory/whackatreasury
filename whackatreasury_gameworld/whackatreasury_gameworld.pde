@@ -3,6 +3,7 @@ int gameCount;
 // The current game in progress
 Game g;
 Coord curPos;
+ListingImage curListing;
 
 // x and y coord possibilities
 Coord[] origins = new Coord[9];
@@ -41,7 +42,7 @@ void setup() {
 void draw() {
 
   background(0, 255, 0);
-  /*
+  
   stroke(0);
   fill(40);
   for (int i = 0; i < 9; i++) {
@@ -53,11 +54,15 @@ void draw() {
   
   fill(255);
   if (!timer.isFinished()) {
-    renderImage(curPos);
+    renderImage(curPos, curListing);
   } else {
     curPos = origins[(int)random(0, 8)];
+    curListing = g.getNextListing();
+    
     //println("done");
     // todo: figure out how to end 
+    
+    
     timer.start();
   }
     
@@ -78,15 +83,18 @@ void renderImage(Coord pos) {
   int offsetY = (pos.y * 5 * offset) + offset;
   //println("Running at " + pos.x + ", " + pos.y);
   stroke(0, 100, 255);
-  rect(offsetX, offsetY, 20, 20); 
+  // get next image from 
+  
+  // need a PImage here
+  
+  //rect(offsetX, offsetY, 20, 20); 
 
-    //g.displayImage(offsetX, offsetY);
   
 } 
 
-
+/*
 void mousePressed() {
   g.drawImage();
 }
-
+*/
 // Whenever there is a serial event, compare it with the state of the current game
