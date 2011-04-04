@@ -1,9 +1,17 @@
-class ListingImage {
-  int listingID;
-  PImage image;
+class Listing {
+  private int listingID;
+  private PImage img; // Prevent image from being overwritten
   
-  ListingImage (int id, PImage p) {
-  	listingID = id;
-  	image = p;
-  } 
+  Listing (int id, PImage p) {
+    listingID = id;
+    img = p;
+  }
+ 
+  PImage getImage() {
+    return img;
+  }
+ 
+ int getListingID() {
+    return listingID;
+ } 
 }

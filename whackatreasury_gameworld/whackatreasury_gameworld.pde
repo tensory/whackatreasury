@@ -3,7 +3,6 @@ int gameCount;
 // The current game in progress
 Game g;
 Coord curPos;
-ListingImage curListing;
 
 // x and y coord possibilities
 Coord[] origins = new Coord[9];
@@ -18,7 +17,7 @@ int treasurySize = 12;
 
 int iterations;
 void setup() {
-  size(500, 500);
+  size(640, 480);
   frameRate(3);
   
   // Set up origins of rectangles on the board   
@@ -36,6 +35,8 @@ void setup() {
   g = new Game(1);
   timer = new Timer(1000); // display image for one second
   curPos = origins[(int)random(0, 8)];
+  
+  // draw first game elements
   timer.start();
 }
 
@@ -43,6 +44,7 @@ void draw() {
 
   background(0, 255, 0);
   
+  // draw image target board
   stroke(0);
   fill(40);
   for (int i = 0; i < 9; i++) {
@@ -54,15 +56,15 @@ void draw() {
   
   fill(255);
   if (!timer.isFinished()) {
-    renderImage(curPos, curListing);
+    renderImage(curPos);
+
+    println(g.curListing.getListingID());
   } else {
     curPos = origins[(int)random(0, 8)];
-    curListing = g.getNextListing();
+    g.setNextListing();
     
-    //println("done");
-    // todo: figure out how to end 
-    
-    
+    println("done");
+    // todo: figure out how to end correctly
     timer.start();
   }
     
@@ -83,13 +85,10 @@ void renderImage(Coord pos) {
   int offsetY = (pos.y * 5 * offset) + offset;
   //println("Running at " + pos.x + ", " + pos.y);
   stroke(0, 100, 255);
-  // get next image from 
-  
-  // need a PImage here
-  
-  //rect(offsetX, offsetY, 20, 20); 
+  Listing current = g.curListing; 
+  image(current.getImage(), offsetX, offsetY);
 
-  
+  //rect(offsetX, offsetY, 20, 20); 
 } 
 
 /*
@@ -98,3 +97,10 @@ void mousePressed() {
 }
 */
 // Whenever there is a serial event, compare it with the state of the current game
+
+/*
+go through the csv
+read next listing id
+
+*/
+

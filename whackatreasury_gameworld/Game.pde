@@ -10,9 +10,10 @@ class Game {
   int totalHits;
   int successfulHits;
   int treasurySize;
-  ArrayList imgs = new ArrayList();
   
-
+  Listing curListing;
+  Stack listings = new Stack();
+  
   int imageSize = 60; // Size of image rectangle
   
   Game(int id) {
@@ -23,8 +24,13 @@ class Game {
     treasurySize = 0;
     
     // Load images asynchronously at init
-    loadImages();
-    println("loaded game " + this.gameID);
+    this.loadListings();
+    
+    // set up first listing for game
+    if (listings.size() > 0 ) {
+      this.curListing = (Listing)listings.pop();
+      println("loaded game " + this.gameID); // Game is ready to go
+    }
   }
   
   // Show an image from the 
@@ -34,13 +40,12 @@ class Game {
   }
   
   // Look through file system for image cache
-  void loadImages() {
+  void loadListings() {
     BufferedReader reader = null;
     String absPath = "/Users/alacenski/Documents/Projects/whackatreasury/whackatreasury_gameworld/data/";
     File file = new File(absPath + this.gameID + "/source.csv");
     
     String line = "";
-    PImage i;
     
     // Open the source file
     try {
@@ -57,13 +62,11 @@ class Game {
           // Split the string by ','
           vals = line.split(",");
           
-          // Initialize ListingImage here and add it to array of listing images
+          // Initialize Listing here and add it to array of listing images
+          int id = Integer.parseInt(vals[0]);
+          PImage i = loadImage(absPath + this.gameID + "/" + vals[1] + ".gif");
           
-          i = loadImage(absPath + this.gameID + "/" + vals[1] + ".gif");
-          // Load image by image ID
-          imgs.add(i);
-          
-          
+          listings.push(new Listing(id, i));
         } // end if (not blank)
       } // end while
     } catch (FileNotFoundException e) {
@@ -74,7 +77,13 @@ class Game {
   }
   
   void drawImage() {
+/*
     PImage img = (PImage)imgs.get(0);
     image(img, 20, 20);
+    */
+  }
+  
+  void setNextListing() {
+    curListing = (Listing)listings.pop();
   }
 }

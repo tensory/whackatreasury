@@ -1,7 +1,13 @@
 Processing: 
 SimpleML with complex handler for netEvent events
 
-TODO: figure out how to display longer delay between images (just do it with frameRate?)
+
+TODO: 
+install netEvent library..
+make API call with netEvent
+install JSON library for Java for Processing
+parse out JSON response from API call
+figure out how to display longer delay between images (just do it with frameRate?)
 
 
 
