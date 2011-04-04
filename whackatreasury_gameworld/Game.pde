@@ -44,8 +44,10 @@ class Game {
     
     // Open the source file
     try {
+      // Currently the file reader expects a line pattern like:
+      // listingID,localfileID
+      
       reader = new BufferedReader(new FileReader(file));
-    String imgPath = absPath + this.gameID + "/";      
       // As long as there are lines in the file, 
       // load up images from the filenames
       while ((line = reader.readLine()) != null) {
@@ -55,7 +57,7 @@ class Game {
           // Split the string by ','
           vals = line.split(",");
           
-          // Initialize ListingImage here
+          // Initialize ListingImage here and add it to array of listing images
           
           i = loadImage(absPath + this.gameID + "/" + vals[1] + ".gif");
           // Load image by image ID

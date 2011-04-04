@@ -1,4 +1,4 @@
-class Timer{
+class Timer {
   int savedTime; //when timer started
   int totalTime; // how long timer should last
   boolean finished;
