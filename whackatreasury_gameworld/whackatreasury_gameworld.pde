@@ -2,24 +2,24 @@
 int gameCount;
 // The current game in progress
 Game g;
+Coord curPos;
 
 // x and y coord possibilities
 Coord[] origins = new Coord[9];
-int offset = 60;
+int offset = 30;
+
+// Timing image display
+Timer timer;
+boolean endImageDisplay = false;
 
 // Treasury size goal
 int treasurySize = 12;
-// Time limit to display current image (in msec)
-int timeLimit = 5000;
-int timer = timeLimit;
 
+int iterations;
 void setup() {
-  frameRate(1);
   size(500, 500);
+  frameRate(3);
   
-  // start with game 0
-  g = new Game(0);
-
   // Set up origins of rectangles on the board   
   origins[0] = new Coord(0, 0);
   origins[1] = new Coord(1, 0);
@@ -30,22 +30,38 @@ void setup() {
   origins[6] = new Coord(0, 2);
   origins[7] = new Coord(1, 2);
   origins[8] = new Coord(2, 2);
+
+  // start with game 0
+  g = new Game(0);
+  timer = new Timer(1000); // display image for one second
+  curPos = origins[(int)random(0, 8)];
   
+  timer.start();
 }
 
 void draw() {
-  background(200);
-  Coord curPos = origins[(int)random(0, 8)];
-  renderImage(curPos);
+  //delay(3000);
+  background(0, 255, 0);
+  stroke(0);
+  fill(40);
+  for (int i = 0; i < 9; i++) {
+    Coord coord = origins[i];
+    int offsetX = (coord.x * 5 * offset) + offset;
+    int offsetY = (coord.y * 5 * offset) + offset;
+    rect(offsetX, offsetY, 60, 60);
+  }
   
-  delay(4000);
+  fill(255);
   
-  
+ 
+  if (!timer.isFinished()) {
+    renderImage(curPos);
+  } else {
+    curPos = origins[(int)random(0, 8)];
+    println("done");
+    timer.start();
+  }
     
-  
-  
-  
-  
   
   // Endgame condition: start a new one
   if (false) { // actual condition: if current game has completed a treasury
@@ -59,13 +75,16 @@ void draw() {
   
 }
 
-void renderImage(Coord pos) {
-  while (timer > 0) {
-    g.displayImage((pos.x * 10) + offset, (pos.y * 10) + offset);
-    timer--;    
-  }
-  // Reset timer
-  timer = timeLimit;
+void renderImage(Coord pos) {  
+  int offsetX = (pos.x * 5 * offset) + offset;
+  int offsetY = (pos.y * 5 * offset) + offset;
+  println("Running at " + pos.x + ", " + pos.y);
+  //while (timer > 0) {   
+  stroke(0, 100, 255);
+  rect(offsetX, offsetY, 20, 20); 
+
+    //g.displayImage(offsetX, offsetY);
+  
 } 
 
 
@@ -82,7 +101,7 @@ class Game {
   int successfulHits;
   int treasurySize;
 
-  int imageSize = 10; // Size of image rectangle
+  int imageSize = 60; // Size of image rectangle
   
   Game(int id) {
     gameID = id;
@@ -106,6 +125,37 @@ class Coord {
     x = ix;
     y = iy;
   }
+}
+
+class Timer{
+  int savedTime; //when timer started
+  int totalTime; // how long timer should last
+  boolean finished;
+  Timer (int tempTotalTime){
+    totalTime = tempTotalTime;
+    finished=false;
+  }
+ 
+  //Starting the timer
+  void start(){
+    if(endImageDisplay == false)
+    savedTime = millis(); //when the timer starts it stores the current time in milliseconds
+  }
+  void reset() {
+    savedTime=0; 
+  }
+ 
+ boolean isFinished(){
+   //Check how much time has passed
+   int passedTime = millis() - savedTime;
+   if(passedTime > totalTime){
+     finished = true;
+     return true;
+   } else{
+     finished = false;
+     return false;
+   }
+ } 
 }
 
 

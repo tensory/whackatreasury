@@ -1,7 +1,10 @@
 Processing: 
-SimpleML
+SimpleML with complex handler for netEvent events
 
-SO.
+TODO: figure out how to display longer delay between images (just do it with frameRate?)
+
+
+
 
 Web interface that submits name, search query also kicks off sourcefile generation script
 
