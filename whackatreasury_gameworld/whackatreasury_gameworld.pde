@@ -32,16 +32,16 @@ void setup() {
   origins[8] = new Coord(2, 2);
 
   // start with game 0
-  g = new Game(0);
+  g = new Game(1);
   timer = new Timer(1000); // display image for one second
   curPos = origins[(int)random(0, 8)];
-  
   timer.start();
 }
 
 void draw() {
-  //delay(3000);
+
   background(0, 255, 0);
+  /*
   stroke(0);
   fill(40);
   for (int i = 0; i < 9; i++) {
@@ -52,17 +52,16 @@ void draw() {
   }
   
   fill(255);
-  
- 
   if (!timer.isFinished()) {
     renderImage(curPos);
   } else {
     curPos = origins[(int)random(0, 8)];
-    println("done");
+    //println("done");
+    // todo: figure out how to end 
     timer.start();
   }
     
-  
+  /*
   // Endgame condition: start a new one
   if (false) { // actual condition: if current game has completed a treasury
     // request next game ID from the server
@@ -71,15 +70,13 @@ void draw() {
       g = new Game(nextGameID);
     }
   }
-  
-  
+  */
 }
 
 void renderImage(Coord pos) {  
   int offsetX = (pos.x * 5 * offset) + offset;
   int offsetY = (pos.y * 5 * offset) + offset;
-  println("Running at " + pos.x + ", " + pos.y);
-  //while (timer > 0) {   
+  //println("Running at " + pos.x + ", " + pos.y);
   stroke(0, 100, 255);
   rect(offsetX, offsetY, 20, 20); 
 
@@ -89,74 +86,7 @@ void renderImage(Coord pos) {
 
 
 void mousePressed() {
+  g.drawImage();
 }
 
 // Whenever there is a serial event, compare it with the state of the current game
-
-
-class Game {
-  int gameID;
-  boolean active = false;
-  int totalHits;
-  int successfulHits;
-  int treasurySize;
-
-  int imageSize = 60; // Size of image rectangle
-  
-  Game(int id) {
-    gameID = id;
-    active = true;
-    totalHits = 0;
-    successfulHits = 0;
-    treasurySize = 0;
-  }
-  
-  // Show an image from the 
-  void displayImage(int originX, int originY) {
-    stroke(0, 0, 255);
-    rect(originX, originY, imageSize, imageSize); 
-  }  
-}
-
-class Coord {
-  int x, y;
-  
-  Coord(int ix, int iy) {
-    x = ix;
-    y = iy;
-  }
-}
-
-class Timer{
-  int savedTime; //when timer started
-  int totalTime; // how long timer should last
-  boolean finished;
-  Timer (int tempTotalTime){
-    totalTime = tempTotalTime;
-    finished=false;
-  }
- 
-  //Starting the timer
-  void start(){
-    if(endImageDisplay == false)
-    savedTime = millis(); //when the timer starts it stores the current time in milliseconds
-  }
-  void reset() {
-    savedTime=0; 
-  }
- 
- boolean isFinished(){
-   //Check how much time has passed
-   int passedTime = millis() - savedTime;
-   if(passedTime > totalTime){
-     finished = true;
-     return true;
-   } else{
-     finished = false;
-     return false;
-   }
- } 
-}
-
-
-
