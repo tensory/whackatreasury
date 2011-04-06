@@ -1,8 +1,4 @@
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import org.json.*;
 
 class Game {
   int gameID;
@@ -10,6 +6,8 @@ class Game {
   int totalHits;
   int successfulHits;
   int treasurySize;
+  boolean listingRequestSent = false;
+  private boolean ready;
   
   Listing curListing;
   Stack listings = new Stack();
@@ -22,25 +20,26 @@ class Game {
     totalHits = 0;
     successfulHits = 0;
     treasurySize = 0;
-    
-    // Load images asynchronously at init
-    //this.loadListings();
-    
-    // set up first listing for game
-    if (listings.size() > 0 ) {
-      this.curListing = (Listing)listings.pop();
-      println("loaded game " + this.gameID); // Game is ready to go
+    ready = false;
+  }
+  
+  void loadListings(JSONArray listings) {
+    // limit listings to 15 just for the local demo. Remove when using full set of Etsy images
+     
+    try {
+      for (int j = 0; j < listings.length(); j++) {
+        JSONObject listing = (JSONObject)listings.get(j); 
+        
+        String id = listing.get("listing_id").toString();
+        this.listings.push(new Listing(Integer.parseInt(id))); // change this to initialize images differently
+      } 
+      
+      this.ready = true; // game is ready!
+    } catch (Exception e) {
+      e.printStackTrace();
     }
   }
   
-  // Show an image from the 
-  void displayImage(int originX, int originY) {
-    stroke(0, 0, 255);
-    rect(originX, originY, imageSize, imageSize); 
-  }
-  
-  void loadListings() {
-  }
   /*
   // Look through file system for image cache
   void loadListings() {
@@ -78,14 +77,16 @@ class Game {
     }
   }
   */
-  void drawImage() {
-/*
-    PImage img = (PImage)imgs.get(0);
-    image(img, 20, 20);
-    */
-  }
   
   void setNextListing() {
     curListing = (Listing)listings.pop();
+  }
+  
+  boolean isReady() {
+    return this.ready;
+  }
+  
+  void setRequestSent(boolean wasSent) {
+    this.listingRequestSent = wasSent;
   }
 }

@@ -2,9 +2,9 @@ class Listing {
   private int listingID;
   private PImage img; // Prevent image from being overwritten
   
-  Listing (int id, PImage p) {
+  Listing (int id) {
     listingID = id;
-    img = p;
+    img = loadImage(id + ".jpg");
   }
  
   PImage getImage() {
