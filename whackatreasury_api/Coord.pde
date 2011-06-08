@@ -6,3 +6,4 @@ class Coord {
     y = iy;
   }
 }
+
